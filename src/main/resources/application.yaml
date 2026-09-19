@@ -7,3 +7,27 @@ spring:
   application:
     name: Agri-Drone-Management-System-Back-End
 
+  # DataSource Settings
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  # Enable H2 Web Console
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  # JPA / Hibernate Settings
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    # Tells Spring Boot to run data.sql after Hibernate creates or updates tables
+    defer-datasource-initialization: true
+
+    # If you rely strictly on schema.sql for table creation:
+    #spring.jpa.hibernate.ddl-auto=none
