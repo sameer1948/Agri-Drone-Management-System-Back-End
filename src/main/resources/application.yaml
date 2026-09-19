@@ -1,0 +1,9 @@
+server:
+  port: 9642
+  servlet:
+    context-path: /agri-drone-management-system
+
+spring:
+  application:
+    name: Agri-Drone-Management-System-Back-End
+
