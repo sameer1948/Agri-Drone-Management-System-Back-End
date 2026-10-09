@@ -9,6 +9,9 @@ import java.util.List;
 
 @Repository
 public interface LogRepository extends JpaRepository<LogEntry, Long> {
+
     List<LogEntry> findByPaymentStatus(PaymentStatus paymentStatus);
     List<LogEntry> findByCropVillageIgnoreCase(String village);
+
+
 }

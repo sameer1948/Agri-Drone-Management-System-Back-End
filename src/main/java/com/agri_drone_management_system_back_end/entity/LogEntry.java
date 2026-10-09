@@ -1,5 +1,6 @@
 package com.agri_drone_management_system_back_end.entity;
 
+import com.agri_drone_management_system_back_end.model.ActivityStatus;
 import com.agri_drone_management_system_back_end.model.PaymentStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -19,14 +20,20 @@ public class LogEntry {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "serial_no")
-    private Long serialNo;
+    @Column(name = "log_id", nullable = false)
+    private Long logId;
 
-    @Column(name = "log_date", nullable = false)
-    private LocalDate date;
+    @Column(name = "booking_id", nullable = false)
+    private Long bookingId;
 
-    @Column(name = "log_time", nullable = false)
-    private LocalTime time;
+    @Column(name = "drone_id", length = 50, nullable = false)
+    private String droneId;
+
+    @Column(name = "create_date", nullable = false)
+    private LocalDate createDate;
+
+    @Column(name = "create_time", nullable = false)
+    private LocalTime createTime;
 
     @Column(name = "crop_name", length = 100, nullable = false)
     private String cropName;
@@ -49,8 +56,18 @@ public class LogEntry {
     @Column(name = "amount", precision = 10, scale = 2, nullable = false)
     private BigDecimal amount;
 
+    @Column(name = "complete_date")
+    private LocalDate completeDate;
+
+    @Column(name = "complete_time")
+    private LocalTime completeTime;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "activity_status", length = 20, nullable = false)
+    private ActivityStatus activityStatus = ActivityStatus.CONFIRMED; // default
+
     @Enumerated(EnumType.STRING)
     @Column(name = "payment_status", length = 20, nullable = false)
-    private PaymentStatus paymentStatus;
+    private PaymentStatus paymentStatus = PaymentStatus.PENDING; // default
 
 }

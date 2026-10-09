@@ -18,18 +18,20 @@ public class LogService {
         return logRepository.findAll();
     }
 
-    public Optional<LogEntry> getLogBySerialNo(Long serialNo) {
-        return logRepository.findById(serialNo);
+    public Optional<LogEntry> getLogByLogId(Long logId) {
+        return logRepository.findById(logId);
     }
 
     public LogEntry createLog(LogEntry logEntry) {
         return logRepository.save(logEntry);
     }
 
-    public Optional<LogEntry> updateLog(Long serialNo, LogEntry updated) {
-        return logRepository.findById(serialNo).map(existing -> {
-            existing.setDate(updated.getDate());
-            existing.setTime(updated.getTime());
+    public Optional<LogEntry> updateLog(Long logId, LogEntry updated) {
+        return logRepository.findById(logId).map(existing -> {
+            existing.setBookingId(updated.getBookingId());
+            existing.setDroneId(updated.getDroneId());
+            existing.setCreateDate(updated.getCreateDate());
+            existing.setCreateTime(updated.getCreateTime());
             existing.setCropName(updated.getCropName());
             existing.setCropOwnerName(updated.getCropOwnerName());
             existing.setCropOwnerPhone(updated.getCropOwnerPhone());
@@ -37,14 +39,17 @@ public class LogService {
             existing.setCropVillage(updated.getCropVillage());
             existing.setTankUsage(updated.getTankUsage());
             existing.setAmount(updated.getAmount());
+            existing.setCompleteDate(updated.getCompleteDate());
+            existing.setCompleteTime(updated.getCompleteTime());
+            existing.setActivityStatus(updated.getActivityStatus());
             existing.setPaymentStatus(updated.getPaymentStatus());
             return logRepository.save(existing);
         });
     }
 
-    public boolean deleteLog(Long serialNo) {
-        if (logRepository.existsById(serialNo)) {
-            logRepository.deleteById(serialNo);
+    public boolean deleteLog(Long logId) {
+        if (logRepository.existsById(logId)) {
+            logRepository.deleteById(logId);
             return true;
         }
         return false;

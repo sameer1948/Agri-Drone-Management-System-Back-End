@@ -16,7 +16,8 @@ public class Rate {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "rate_id", nullable = false)
+    private Long rateId;
 
     @Column(name = "price", nullable = false, precision = 10, scale = 2)
     private BigDecimal price;

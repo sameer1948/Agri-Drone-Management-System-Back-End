@@ -16,16 +16,16 @@ import lombok.NoArgsConstructor;
 public class Drone {
 
     @Id
-    @Column(name = "droneid", length = 50, nullable = false)
+    @Column(name = "drone_id", length = 50, nullable = false)
     private String droneId;
 
-    @Column(name = "dronename", length = 50, nullable = false)
+    @Column(name = "drone_name", length = 50, nullable = false)
     private String droneName;
 
-    @Column(name = "droneownername", length = 100, nullable = false)
+    @Column(name = "drone_owner_name", length = 100, nullable = false)
     private String droneOwnerName;
 
-    @Column(name = "droneownerphone", length = 20, nullable = false)
+    @Column(name = "drone_owner_phone", length = 20, nullable = false)
     private String droneOwnerPhone;
 
 }

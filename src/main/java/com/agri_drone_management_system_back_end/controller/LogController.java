@@ -23,9 +23,9 @@ public class LogController {
         return ResponseEntity.ok(logService.getAllLogs());
     }
 
-    @GetMapping("/{serialNo}")
-    public ResponseEntity<LogEntry> getLogById(@PathVariable Long serialNo) {
-        return logService.getLogBySerialNo(serialNo)
+    @GetMapping("/{logId}")
+    public ResponseEntity<LogEntry> getLogById(@PathVariable Long logId) {
+        return logService.getLogByLogId(logId)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
@@ -36,18 +36,32 @@ public class LogController {
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
-    @PutMapping("/{serialNo}")
-    public ResponseEntity<LogEntry> updateLog(@PathVariable Long serialNo, @RequestBody LogEntry updated) {
-        return logService.updateLog(serialNo, updated)
+    @PutMapping("/{logId}")
+    public ResponseEntity<LogEntry> updateLog(@PathVariable Long logId, @RequestBody LogEntry updated) {
+        return logService.updateLog(logId, updated)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @DeleteMapping("/{serialNo}")
-    public ResponseEntity<Void> deleteLog(@PathVariable Long serialNo) {
-        if (logService.deleteLog(serialNo)) {
+    @DeleteMapping("/{logId}")
+    public ResponseEntity<Void> deleteLog(@PathVariable Long logId) {
+        if (logService.deleteLog(logId)) {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.notFound().build();
     }
+
+    // Inside LogController.java:
+
+ /*   @PatchMapping("/{serialNo}/payment-status")
+    public ResponseEntity<LogEntry> updatePaymentStatus(
+            @PathVariable Long serialNo,
+            @RequestParam PaymentStatus status) {
+
+        return logRepository.findById(serialNo).map(log -> {
+            log.setPaymentStatus(status);
+            LogEntry updated = logRepository.save(log);
+            return ResponseEntity.ok(updated);
+        }).orElseGet(() -> ResponseEntity.notFound().build());
+    }*/
 }
