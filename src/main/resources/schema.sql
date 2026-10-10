@@ -70,6 +70,6 @@ CREATE TABLE IF NOT EXISTS repairs (
     repair_date DATE NOT NULL,
     repair_time TIME NOT NULL,
     location VARCHAR(150) NOT NULL,
-    booking_id BIGINT,
+    booking_id BIGINT
     --CONSTRAINT fk_repairs_booking FOREIGN KEY (booking_id)  REFERENCES booking(booking_id) ON DELETE SET NULL
     );

@@ -19,6 +19,6 @@ public interface RepairRepository extends JpaRepository<Repair, Long> {
     // Filter by place or search keyword
     @Query("SELECT r FROM Repair r WHERE " +
             "(:query IS NULL OR LOWER(r.repairNote) LIKE LOWER(CONCAT('%', :query, '%')) " +
-            "OR LOWER(r.place) LIKE LOWER(CONCAT('%', :query, '%')))")
+            "OR LOWER(r.location) LIKE LOWER(CONCAT('%', :query, '%')))")
     Page<Repair> searchRepairs(@Param("query") String query, Pageable pageable);
 }
