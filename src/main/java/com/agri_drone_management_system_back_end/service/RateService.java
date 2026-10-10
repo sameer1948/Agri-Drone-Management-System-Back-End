@@ -1,6 +1,6 @@
 package com.agri_drone_management_system_back_end.service;
 
-import com.agri_drone_management_system_back_end.Repository.RateRepository;
+import com.agri_drone_management_system_back_end.repository.RateRepository;
 import com.agri_drone_management_system_back_end.entity.Rate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

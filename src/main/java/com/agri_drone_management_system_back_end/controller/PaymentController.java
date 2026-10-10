@@ -50,6 +50,14 @@ public class PaymentController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    // GET /api/payments/log/{logId}
+    @GetMapping("/log/{logId}")
+    public ResponseEntity<Payment> getPaymentByLogId(@PathVariable Long logId) {
+        return paymentService.getPaymentByLogId(logId)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
     // POST /api/payments (Create new ledger entry)
     @PostMapping
     public ResponseEntity<Payment> createPayment(@RequestBody Payment payment) {

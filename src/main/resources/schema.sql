@@ -62,3 +62,14 @@ CREATE TABLE IF NOT EXISTS payments (
     payment_notes VARCHAR(255)
     --CONSTRAINT fk_payments_log FOREIGN KEY (log_id) REFERENCES logs(log_id) ON DELETE CASCADE
     );
+
+CREATE TABLE IF NOT EXISTS repairs (
+    repair_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    repair_note VARCHAR(500) NOT NULL,
+    amount DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
+    repair_date DATE NOT NULL,
+    repair_time TIME NOT NULL,
+    location VARCHAR(150) NOT NULL,
+    booking_id BIGINT,
+    --CONSTRAINT fk_repairs_booking FOREIGN KEY (booking_id)  REFERENCES booking(booking_id) ON DELETE SET NULL
+    );

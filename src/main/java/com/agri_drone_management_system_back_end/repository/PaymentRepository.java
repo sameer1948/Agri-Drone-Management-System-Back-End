@@ -11,9 +11,12 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface PaymentRepository extends JpaRepository<Payment, Long> {
+
+    Optional<Payment> findByLogId(Long logId);
 
     // Filter by payment status (PENDING, PAID, etc.)
     List<Payment> findByPaymentStatus(PaymentStatus paymentStatus);

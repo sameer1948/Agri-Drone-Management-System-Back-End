@@ -36,6 +36,11 @@ public class PaymentService {
         return paymentRepository.findById(paymentId);
     }
 
+    // Retrieve single payment by Log ID
+    public Optional<Payment> getPaymentByLogId(Long logId) {
+        return paymentRepository.findByLogId(logId);
+    }
+
     // Paginated & sorted retrieval
     public Page<Payment> getPaginatedPayments(int page, int size, String sortBy, String sortDir,
                                               PaymentStatus status, String paymentType) {
