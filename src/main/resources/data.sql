@@ -1,14 +1,12 @@
-INSERT INTO drone (drone_id, drone_name, drone_owner_name, drone_owner_phone) VALUES
-('1','Phantom Pro 4', 'Alex Rivera', '+1-555-0192'),
-('2','Mavic 3 Cine', 'Sarah Jenkins', '+1-555-0143'),
-('5','SkyViper X10', 'Rahul Sharma', '+91-98765-43210'),
-('3','Matrice 300 RTK', 'Elena Rostova', '+44-20-7946-0912'),
-('4','Autel EVO Lite+', 'Marcus Chen', '+1-555-0188');
-
-
+INSERT INTO drone (drone_id, drone_name, drone_owner_name, drone_owner_phone, drone_status) VALUES
+('1','Phantom Pro 4', 'Alex Rivera', '+1-555-0192', 'ACTIVE'),
+('2','Mavic 3 Cine', 'Sarah Jenkins', '+1-555-0143', 'ACTIVE'),
+('5','SkyViper X10', 'Rahul Sharma', '+91-98765-43210', 'ACTIVE'),
+('3','Matrice 300 RTK', 'Elena Rostova', '+44-20-7946-0912', 'ACTIVE'),
+('4','Autel EVO Lite+', 'Marcus Chen', '+1-555-0188', 'ACTIVE');
 
 -- Initial Rate
-INSERT INTO rate (price) VALUES (250.00);
+INSERT INTO rate (price, last_updated) VALUES (250.00, '2026-09-20 10:00:00');
 
 -- Sample Drone Spraying Logs
 INSERT INTO logs (booking_id, drone_id, create_date, create_time, crop_name, crop_owner_name, crop_owner_phone, crop_size, crop_village, tank_usage, amount, activity_status, payment_status) VALUES

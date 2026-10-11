@@ -2,12 +2,43 @@ CREATE TABLE IF NOT EXISTS drone (
     drone_id VARCHAR(50)  PRIMARY KEY,
     drone_name VARCHAR(50) NOT NULL,
     drone_owner_name VARCHAR(100) NOT NULL,
-    drone_owner_phone VARCHAR(20) NOT NULL
+    drone_owner_phone VARCHAR(20) NOT NULL,
+    drone_status VARCHAR(20) NOT NULL CHECK (drone_status IN ('ACTIVE', 'INACTIVE'))
     );
 
 CREATE TABLE IF NOT EXISTS rate (
     rate_id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    price DECIMAL(10, 2) NOT NULL
+    price DECIMAL(10, 2) NOT NULL,
+    is_active BOOLEAN NOT NULL DEFAULT TRUE,
+    effective_from TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    effective_to TIMESTAMP NULL DEFAULT NULL,
+    change_reason VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
+
+CREATE TABLE IF NOT EXISTS village (
+    village_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL UNIQUE
+    );
+
+CREATE TABLE IF NOT EXISTS crop (
+    crop_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL UNIQUE
+    );
+
+CREATE TABLE IF NOT EXISTS booking (
+    booking_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    booking_date DATE NOT NULL,
+    booking_day VARCHAR(15) NOT NULL,
+    crop_name VARCHAR(100) NOT NULL,
+    crop_owner_name VARCHAR(100) NOT NULL,
+    crop_owner_phone VARCHAR(20) NOT NULL,
+    crop_size DECIMAL(10, 2) NOT NULL,
+    crop_village VARCHAR(100) NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    amount DECIMAL(10, 2) NOT NULL,
+    booking_notes VARCHAR(200) NULL,
+    booking_status VARCHAR(20) NOT NULL CHECK (booking_status IN ('CONFIRMED', 'CANCELLED', 'PENDING'))
     );
 
 CREATE TABLE IF NOT EXISTS logs (
@@ -29,24 +60,6 @@ CREATE TABLE IF NOT EXISTS logs (
     payment_status VARCHAR(20) NOT NULL CHECK (payment_status IN ('PAID', 'PENDING'))
     );
 
-CREATE TABLE IF NOT EXISTS booking (
-    booking_id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    booking_date DATE NOT NULL,
-    booking_day VARCHAR(15) NOT NULL,
-    crop_name VARCHAR(100) NOT NULL,
-    crop_owner_name VARCHAR(100) NOT NULL,
-    crop_owner_phone VARCHAR(20) NOT NULL,
-    crop_size DECIMAL(10, 2) NOT NULL,
-    crop_village VARCHAR(100) NOT NULL,
-    price DECIMAL(10, 2) NOT NULL,
-    amount DECIMAL(10, 2) NOT NULL,
-    booking_notes VARCHAR(200) NULL,
-    booking_status VARCHAR(20) NOT NULL CHECK (booking_status IN ('CONFIRMED', 'CANCELLED', 'PENDING'))
-    );
-
-
-
--- 3. PAYMENTS TABLE (Linked to LogEntry via log_id)
 CREATE TABLE IF NOT EXISTS payments (
     payment_id BIGINT AUTO_INCREMENT PRIMARY KEY,
     log_id BIGINT UNIQUE NOT NULL,

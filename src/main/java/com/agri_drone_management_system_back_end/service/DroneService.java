@@ -31,6 +31,7 @@ public class DroneService {
             existingDrone.setDroneName(updatedDrone.getDroneName());
             existingDrone.setDroneOwnerName(updatedDrone.getDroneOwnerName());
             existingDrone.setDroneOwnerPhone(updatedDrone.getDroneOwnerPhone());
+            existingDrone.setDroneStatus(updatedDrone.getDroneStatus());
             return droneRepository.save(existingDrone);
         });
     }

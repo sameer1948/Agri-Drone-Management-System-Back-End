@@ -1,5 +1,6 @@
 package com.agri_drone_management_system_back_end.entity;
 
+import com.agri_drone_management_system_back_end.model.DroneStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -27,5 +28,8 @@ public class Drone {
 
     @Column(name = "drone_owner_phone", length = 20, nullable = false)
     private String droneOwnerPhone;
+
+    @Column(name = "drone_status", length = 20, nullable = false)
+    private DroneStatus droneStatus = DroneStatus.ACTIVE;
 
 }

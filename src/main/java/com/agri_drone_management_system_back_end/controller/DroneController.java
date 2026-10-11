@@ -1,6 +1,7 @@
 package com.agri_drone_management_system_back_end.controller;
 
 import com.agri_drone_management_system_back_end.entity.Drone;
+import com.agri_drone_management_system_back_end.model.DroneStatus;
 import com.agri_drone_management_system_back_end.service.DroneService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -40,9 +41,7 @@ public class DroneController {
 
     // 4. UPDATE: PUT /api/drones/{id}
     @PutMapping("/{id}")
-    public ResponseEntity<Drone> updateDrone(
-            @PathVariable("id") String droneId,
-            @RequestBody Drone droneDetails) {
+    public ResponseEntity<Drone> updateDrone(@PathVariable("id") String droneId, @RequestBody Drone droneDetails) {
         return droneService.updateDrone(droneId, droneDetails)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
@@ -57,4 +56,17 @@ public class DroneController {
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); // 404 Not Found
     }
+
+    // 6. Update the status of a drone: PATCH /api/drones/{id}/status
+    @PatchMapping("/{id}/status")
+    public ResponseEntity<Drone> updateDroneStatus(@PathVariable("id") String droneId, @RequestBody String newStatus) {
+        return droneService.getDroneById(droneId)
+                .map(drone -> {
+                    drone.setDroneStatus(DroneStatus.valueOf(newStatus)); // Update the status
+                    Drone updatedDrone = droneService.createDrone(drone); // Save the updated drone
+                    return ResponseEntity.ok(updatedDrone);
+                })
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    }
+
 }
