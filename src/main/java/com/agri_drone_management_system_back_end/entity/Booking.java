@@ -46,7 +46,7 @@ public class Booking {
     @Column(name = "amount", precision = 10, scale = 2, nullable = false)
     private BigDecimal amount;
 
-    @Column(name = "booking_notes", length = 200, nullable = true)
+    @Column(name = "booking_notes", length = 1000)
     private String bookingNotes;
 
     @Enumerated(EnumType.STRING)

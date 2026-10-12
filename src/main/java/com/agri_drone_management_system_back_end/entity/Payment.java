@@ -1,7 +1,6 @@
 package com.agri_drone_management_system_back_end.entity;
 
 import com.agri_drone_management_system_back_end.model.PaymentStatus;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -60,7 +59,7 @@ public class Payment {
     @Column(name = "payment_type", length = 50)
     private String paymentType;
 
-    @Column(name = "payment_notes", length = 255)
+    @Column(name = "payment_notes", length = 10000)
     private String paymentNotes;
 
 }

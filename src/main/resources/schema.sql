@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS booking (
     crop_village VARCHAR(100) NOT NULL,
     price DECIMAL(10, 2) NOT NULL,
     amount DECIMAL(10, 2) NOT NULL,
-    booking_notes VARCHAR(200) NULL,
+    booking_notes VARCHAR(1000) NULL,
     booking_status VARCHAR(20) NOT NULL CHECK (booking_status IN ('CONFIRMED', 'CANCELLED', 'PENDING'))
     );
 
@@ -72,13 +72,13 @@ CREATE TABLE IF NOT EXISTS payments (
     last_payment_date DATE,
     last_payment_time TIME,
     payment_type VARCHAR(50),
-    payment_notes VARCHAR(255)
+    payment_notes VARCHAR(10000)
     --CONSTRAINT fk_payments_log FOREIGN KEY (log_id) REFERENCES logs(log_id) ON DELETE CASCADE
     );
 
 CREATE TABLE IF NOT EXISTS repairs (
     repair_id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    repair_note VARCHAR(500) NOT NULL,
+    repair_note VARCHAR(10000) NOT NULL,
     amount DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
     repair_date DATE NOT NULL,
     repair_time TIME NOT NULL,

@@ -21,7 +21,7 @@ public class Repair {
     @Column(name = "repair_id", nullable = false)
     private Long repairId;
 
-    @Column(name = "repair_note", length = 500, nullable = false)
+    @Column(name = "repair_note", length = 10000, nullable = false)
     private String repairNote;
 
     @Column(name = "amount", precision = 10, scale = 2, nullable = false)

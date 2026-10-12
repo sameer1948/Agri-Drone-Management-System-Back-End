@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/v1/api/drones")
@@ -59,14 +60,29 @@ public class DroneController {
 
     // 6. Update the status of a drone: PATCH /api/drones/{id}/status
     @PatchMapping("/{id}/status")
-    public ResponseEntity<Drone> updateDroneStatus(@PathVariable("id") String droneId, @RequestBody String newStatus) {
-        return droneService.getDroneById(droneId)
-                .map(drone -> {
-                    drone.setDroneStatus(DroneStatus.valueOf(newStatus)); // Update the status
-                    Drone updatedDrone = droneService.createDrone(drone); // Save the updated drone
-                    return ResponseEntity.ok(updatedDrone);
-                })
-                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    public ResponseEntity<Drone> updateDroneStatus(
+            @PathVariable("id") String droneId,
+            @RequestBody Map<String, String> payload) {
+
+        String statusStr = payload.get("droneStatus");
+        if (statusStr == null || statusStr.isBlank()) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        try {
+            DroneStatus newStatus = DroneStatus.valueOf(statusStr.trim().toUpperCase());
+
+            return droneService.getDroneById(droneId)
+                    .map(drone -> {
+                        drone.setDroneStatus(newStatus);
+                        Drone updatedDrone = droneService.createDrone(drone);
+                        return ResponseEntity.ok(updatedDrone);
+                    })
+                    .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+
+        } catch (IllegalArgumentException ex) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
 }
