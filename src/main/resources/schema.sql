@@ -31,14 +31,13 @@ CREATE TABLE IF NOT EXISTS crop (
 CREATE TABLE IF NOT EXISTS booking (
     booking_id BIGINT AUTO_INCREMENT PRIMARY KEY,
     booking_date DATE NOT NULL,
+    booking_time TIME NOT NULL,
     booking_day VARCHAR(15) NOT NULL,
     crop_name VARCHAR(100) NOT NULL,
     crop_owner_name VARCHAR(100) NOT NULL,
     crop_owner_phone VARCHAR(20) NOT NULL,
     crop_size DECIMAL(10, 2) NOT NULL,
     crop_village VARCHAR(100) NOT NULL,
-    price DECIMAL(10, 2) NOT NULL,
-    amount DECIMAL(10, 2) NOT NULL,
     booking_notes VARCHAR(1000) NULL,
     booking_status VARCHAR(20) NOT NULL CHECK (booking_status IN ('CONFIRMED', 'CANCELLED', 'PENDING'))
     );

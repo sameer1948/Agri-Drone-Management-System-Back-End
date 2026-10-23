@@ -2,16 +2,19 @@ package com.agri_drone_management_system_back_end.entity;
 
 import com.agri_drone_management_system_back_end.model.BookingStatus;
 import jakarta.persistence.*;
-import lombok.Data;
-
+import lombok.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.TextStyle;
 import java.util.Locale;
 
-@Entity
-@Table(name = "booking")
+@AllArgsConstructor
+@Builder
 @Data
+@Entity
+@NoArgsConstructor
+@Table(name = "booking")
 public class Booking {
 
     @Id
@@ -21,6 +24,9 @@ public class Booking {
 
     @Column(name = "booking_date", nullable = false)
     private LocalDate bookingDate;
+
+    @Column(name = "booking_time", nullable = false)
+    private LocalTime bookingTime;
 
     @Column(name = "booking_day", length = 15, nullable = false)
     private String bookingDay;
@@ -40,12 +46,6 @@ public class Booking {
     @Column(name = "crop_village", length = 100, nullable = false)
     private String cropVillage;
 
-    @Column(name = "price", precision = 10, scale = 2, nullable = false)
-    private BigDecimal price;
-
-    @Column(name = "amount", precision = 10, scale = 2, nullable = false)
-    private BigDecimal amount;
-
     @Column(name = "booking_notes", length = 1000)
     private String bookingNotes;
 
@@ -53,27 +53,11 @@ public class Booking {
     @Column(name = "booking_status", length = 20, nullable = false)
     private BookingStatus bookingStatus = BookingStatus.PENDING; // default
 
-    public Booking() {}
-
-    public Booking(LocalDate bookingDate, String cropName, String cropOwnerName,
-                   String cropOwnerPhone, BigDecimal cropSize, String cropVillage,
-                   BigDecimal price, BigDecimal amount, String bookingNotes, BookingStatus bookingStatus) {
-        this.bookingDate = bookingDate;
-        this.cropName = cropName;
-        this.cropOwnerName = cropOwnerName;
-        this.cropOwnerPhone = cropOwnerPhone;
-        this.cropSize = cropSize;
-        this.cropVillage = cropVillage;
-        this.price = price;
-        this.amount = amount;
-        this.bookingNotes = bookingNotes;
-        this.bookingStatus = bookingStatus;
-        populateDay();
-    }
-
     @PrePersist
-    @PreUpdate
-    public void populateDay() {
+    public void onPrePersist() {
+        if (this.bookingTime == null) {
+            this.bookingTime = LocalTime.now();
+        }
         // 2. Ensure it is never null before saving to database
         if (this.bookingStatus == null) {
             this.bookingStatus = BookingStatus.PENDING;
@@ -83,5 +67,4 @@ public class Booking {
             this.bookingDay = this.bookingDate.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.ENGLISH);
         }
     }
-
 }

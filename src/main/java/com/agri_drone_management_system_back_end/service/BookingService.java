@@ -56,13 +56,12 @@ public class BookingService {
         System.out.println("Updating booking with ID: " + updated.toString());
         return bookingRepository.findById(bookingId).map(existing -> {
             existing.setBookingDate(updated.getBookingDate());
+            existing.setBookingTime(updated.getBookingTime());
             existing.setCropName(updated.getCropName());
             existing.setCropOwnerName(updated.getCropOwnerName());
             existing.setCropOwnerPhone(updated.getCropOwnerPhone());
             existing.setCropSize(updated.getCropSize());
             existing.setCropVillage(updated.getCropVillage());
-            existing.setPrice(updated.getPrice());
-            existing.setAmount(updated.getAmount());
             existing.setBookingNotes(updated.getBookingNotes());
             existing.setBookingStatus(updated.getBookingStatus());
             return bookingRepository.save(existing);
