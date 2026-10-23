@@ -2,17 +2,20 @@ package com.agri_drone_management_system_back_end.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "rate")
-@Data
-@NoArgsConstructor
 @AllArgsConstructor
+@Builder
+@Data
+@Entity
+@NoArgsConstructor
+@Table(name = "rate")
 public class Rate {
 
     @Id
@@ -20,22 +23,11 @@ public class Rate {
     @Column(name = "rate_id")
     private Long rateId;
 
-    @Column(name = "price", precision = 10, scale = 2, nullable = false)
+    @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal price;
 
-    @Column(name = "is_active", nullable = false)
-    private Boolean isActive = true;
-
-    @Column(name = "effective_from", nullable = false)
-    private LocalDateTime effectiveFrom;
-
-    @Column(name = "effective_to")
-    private LocalDateTime effectiveTo;
-
-    @Column(name = "change_reason")
-    private String changeReason;
-
-    @Column(name = "created_at", nullable = false)
+    @CreationTimestamp
+    @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 
 }
