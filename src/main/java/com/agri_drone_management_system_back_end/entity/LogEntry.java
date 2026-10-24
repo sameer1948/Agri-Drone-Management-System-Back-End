@@ -53,8 +53,17 @@ public class LogEntry {
     @Column(name = "tank_usage", nullable = false)
     private Double tankUsage;
 
+    @Column(name = "price", precision = 10, scale = 2, nullable = false)
+    private BigDecimal price;
+
     @Column(name = "amount", precision = 10, scale = 2, nullable = false)
     private BigDecimal amount;
+
+    @Column(name = "confirmed_date")
+    private LocalDate confirmedDate;
+
+    @Column(name = "confirmed_time")
+    private LocalTime confirmedTime;
 
     @Column(name = "complete_date")
     private LocalDate completeDate;

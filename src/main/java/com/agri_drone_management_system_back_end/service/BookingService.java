@@ -3,6 +3,7 @@ package com.agri_drone_management_system_back_end.service;
 import com.agri_drone_management_system_back_end.repository.BookingRepository;
 import com.agri_drone_management_system_back_end.entity.Booking;
 import com.agri_drone_management_system_back_end.model.BookingStatus;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -10,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -75,4 +77,20 @@ public class BookingService {
         }
         return false;
     }
+
+    @Transactional
+    public Booking updateActualSprayedArea(Long bookingId, BigDecimal actualCropSize, String completionNote) {
+        Booking booking = bookingRepository.findById(bookingId)
+                .orElseThrow(() -> new RuntimeException("Booking not found with ID: " + bookingId));
+
+        booking.setCropSize(actualCropSize);
+
+        if (completionNote != null && !completionNote.isBlank()) {
+            String existingNotes = booking.getBookingNotes() != null ? booking.getBookingNotes() + " | " : "";
+            booking.setBookingNotes(existingNotes + completionNote);
+        }
+
+        return bookingRepository.save(booking);
+    }
+
 }
